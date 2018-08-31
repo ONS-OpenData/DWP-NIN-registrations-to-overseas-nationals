@@ -1,0 +1,12 @@
+html2text==2018.1.9
+lxml==4.2.3
+pandas==0.23.1
+pyexcel==0.5.9
+requests==2.19.1
+databaker==2.0.0
+CacheControl==0.12.5
+rdflib==4.2.2
+pytz==2018.5
+pyexcel-io==0.5.9
+pyexcel-ods==0.5.3
+pyexcel-xls==0.5.8
