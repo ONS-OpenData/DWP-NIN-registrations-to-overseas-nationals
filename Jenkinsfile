@@ -2,6 +2,10 @@ pipeline {
     agent {
         label 'master'
     }
+    triggers {
+        upstream(upstreamProjects: '../Reference/ref_migration',
+                 threshold: hudson.model.Result.SUCCESS)
+    }
     stages {
         stage('Clean') {
             steps {
