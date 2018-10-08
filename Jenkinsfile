@@ -20,7 +20,7 @@ pipeline {
                 }
             }
             steps {
-                sh "jupyter-nbconvert --to python --stdout 'NIN registrations to overseas nationals.ipynb' | ipython"
+                sh "jupyter-nbconvert --output-dir=out --execute 'NIN registrations to overseas nationals.ipynb'"
             }
         }
         stage('Upload draftset') {
