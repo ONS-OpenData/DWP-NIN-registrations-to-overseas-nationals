@@ -23,6 +23,19 @@ pipeline {
                 sh "jupyter-nbconvert --output-dir=out --execute 'NIN registrations to overseas nationals.ipynb'"
             }
         }
+        stage('Test') {
+            agent {
+                docker {
+                    image 'cloudfluff/csvlint'
+                    reuseNode true
+                }
+            }
+            steps {
+                script {
+                    sh "csvlint -s schema.json"
+                }
+            }
+        }
         stage('Upload draftset') {
             steps {
                 script {

@@ -1,0 +1,106 @@
+{
+  "@context": ["http://www.w3.org/ns/csvw", {"@language": "en"}],
+  "tables": [
+    {
+      "url": "https://ons-opendata.github.io/ref_migration/codelists/residence.csv",
+      "tableSchema": "https://ons-opendata.github.io/ref_migration/codelist-schema.json"
+    }, {
+      "url": "https://ons-opendata.github.io/ref_migration/codelists/registration-geographies.csv",
+      "tableSchema": "https://ons-opendata.github.io/ref_migration/codelist-schema.json"
+    }, {
+      "url": "out/ons_geo_observations.csv",
+      "tableSchema": {
+        "columns": [{
+          "titles": "Period",
+          "name": "period",
+          "datatype": {
+            "base": "string",
+            "format": "year/[0-9]{4}|quarter/[0-9]{4}-Q[1-4]"
+          }
+        }, {
+          "titles": "Country of Residence",
+          "name": "countryOfResidence",
+          "required": true
+        }, {
+          "titles": "Measure Type",
+          "name": "measureType",
+          "datatype": {
+            "format": "Count"
+          }
+        }, {
+          "titles": "Value",
+          "name": "value",
+          "datatype": "string",
+          "required": true
+        }, {
+          "titles": "Unit",
+          "name": "unit",
+          "datatype": {
+            "base": "string",
+            "format": "People"
+          },
+          "required": true
+        }, {
+          "titles": "Geography",
+          "name": "geography",
+          "datatype": "string",
+          "required": true
+        }],
+        "foreignKeys": [{
+          "columnReference": "countryOfResidence",
+          "reference": {
+            "resource": "https://ons-opendata.github.io/ref_migration/codelists/residence.csv",
+            "columnReference": "label"
+          }
+        }]
+      }
+    }, {
+      "url": "out/overseas_observations.csv",
+      "tableSchema": {
+        "columns": [{
+          "titles": "Period",
+          "name": "period",
+          "datatype": {
+            "base": "string",
+            "format": "year/[0-9]{4}|quarter/[0-9]{4}-Q[1-4]"
+          }
+        }, {
+          "titles": "Country of Residence",
+          "name": "countryOfResidence",
+          "required": true
+        }, {
+          "titles": "Measure Type",
+          "name": "measureType",
+          "datatype": {
+            "format": "Count"
+          }
+        }, {
+          "titles": "Value",
+          "name": "value",
+          "datatype": "string",
+          "required": true
+        }, {
+          "titles": "Unit",
+          "name": "unit",
+          "datatype": {
+            "base": "string",
+            "format": "People"
+          },
+          "required": true
+        }, {
+          "titles": "Registration Geography",
+          "name": "geography",
+          "datatype": "string",
+          "required": true
+        }],
+        "foreignKeys": [{
+          "columnReference": "countryOfResidence",
+          "reference": {
+            "resource": "https://ons-opendata.github.io/ref_migration/codelists/registration-geographies.csv",
+            "columnReference": "label"
+          }
+        }]
+      }
+    }
+  ]
+}
