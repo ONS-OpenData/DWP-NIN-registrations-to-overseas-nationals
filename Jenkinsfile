@@ -39,12 +39,9 @@ pipeline {
         stage('Upload draftset') {
             steps {
                 script {
-                    def csvs = []
-                    for (def file : findFiles(glob: 'out/*.csv')) {
-                        csvs.add("out/${file.name}")
-                    }
                     jobDraft.replace()
-                    uploadTidy(csvs, 'https://github.com/ONS-OpenData/ref_migration/raw/master/columns.csv')
+                    uploadTidy(['ons_geo_observations.csv'],
+                               'https://github.com/ONS-OpenData/ref_migration/raw/master/columns.csv')
                 }
             }
         }
