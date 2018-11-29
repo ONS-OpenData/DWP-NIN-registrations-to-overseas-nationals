@@ -52,7 +52,8 @@
             "resource": "https://ons-opendata.github.io/ref_migration/codelists/residence.csv",
             "columnReference": "notation"
           }
-        }]
+        }],
+        "primaryKey": ["period", "countryOfResidence", "measureType", "value", "unit", "geography"]
       }
     }
   ]

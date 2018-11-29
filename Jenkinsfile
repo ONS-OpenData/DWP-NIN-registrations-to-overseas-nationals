@@ -1,3 +1,5 @@
+@Library('pmd@add_tests') _
+
 pipeline {
     agent {
         label 'master'
@@ -32,7 +34,9 @@ pipeline {
             }
             steps {
                 script {
-                    sh "csvlint -s schema.json"
+                    ansiColor('xterm') {
+                        sh "csvlint -s schema.json"
+                    }
                 }
             }
         }
@@ -40,7 +44,7 @@ pipeline {
             steps {
                 script {
                     jobDraft.replace()
-                    uploadTidy(['ons_geo_observations.csv'],
+                    uploadTidy(['out/ons_geo_observations.csv'],
                                'https://github.com/ONS-OpenData/ref_migration/raw/master/columns.csv')
                 }
             }
