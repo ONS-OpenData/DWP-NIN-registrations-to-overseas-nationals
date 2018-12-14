@@ -53,7 +53,7 @@
             "columnReference": "notation"
           }
         }],
-        "primaryKey": ["period", "countryOfResidence", "measureType", "value", "unit", "geography"]
+        "primaryKey": ["period", "countryOfResidence", "measureType", "unit", "geography"]
       }
     }
   ]
