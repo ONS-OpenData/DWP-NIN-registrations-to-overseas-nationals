@@ -2,11 +2,8 @@
   "@context": ["http://www.w3.org/ns/csvw", {"@language": "en"}],
   "tables": [
     {
-      "url": "https://ons-opendata.github.io/ref_migration/codelists/residence.csv",
-      "tableSchema": "https://ons-opendata.github.io/ref_migration/codelist-schema.json"
-    }, {
-      "url": "https://ons-opendata.github.io/ref_migration/codelists/registration-geographies.csv",
-      "tableSchema": "https://ons-opendata.github.io/ref_migration/codelist-schema.json"
+      "url": "out/nationalities.csv",
+      "tableSchema": "https://ons-opendata.github.io/ref_common/codelist-schema.json"
     }, {
       "url": "out/ons_geo_observations.csv",
       "tableSchema": {
@@ -18,8 +15,8 @@
             "format": "year/[0-9]{4}|quarter/[0-9]{4}-Q[1-4]"
           }
         }, {
-          "titles": "Country of Residence",
-          "name": "countryOfResidence",
+          "titles": "Nationality",
+          "name": "nationality",
           "required": true
         }, {
           "titles": "Measure Type",
@@ -47,13 +44,13 @@
           "required": true
         }],
         "foreignKeys": [{
-          "columnReference": "countryOfResidence",
+          "columnReference": "nationality",
           "reference": {
-            "resource": "https://ons-opendata.github.io/ref_migration/codelists/residence.csv",
+            "resource": "out/nationalities.csv",
             "columnReference": "notation"
           }
         }],
-        "primaryKey": ["period", "countryOfResidence", "measureType", "unit", "geography"]
+        "primaryKey": ["period", "nationality", "measureType", "unit", "geography"]
       }
     }
   ]
