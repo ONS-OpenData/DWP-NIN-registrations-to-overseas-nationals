@@ -44,6 +44,7 @@ pipeline {
             steps {
                 script {
                     jobDraft.replace()
+                    uploadCodelist('out/nationalities.csv', 'Nationality')
                     uploadTidy(['out/ons_geo_observations.csv'],
                                'https://github.com/ONS-OpenData/ref_migration/raw/master/columns.csv')
                 }
