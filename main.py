@@ -254,7 +254,7 @@ from pathlib import Path
 destinationFolder = Path('out')
 destinationFolder.mkdir(exist_ok=True, parents=True)
 
-ons_geo_table.to_csv(destinationFolder / ('ons_geo_observations.csv'), index = False)
+ons_geo_table.to_csv(destinationFolder / ('observations.csv'), index = False)
 overseas_table.to_csv(destinationFolder / ('overseas_observations.csv'), index = False)
 
 # +
@@ -265,5 +265,8 @@ scraper.dataset.theme = THEME['population']
 with open(destinationFolder / 'dataset.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 # -
+csvw = CSVWMetadata('https://ons-opendata.github.io/ref_migration/')
+csvw.create(out / 'observations.csv', out / 'observations.csv-schema.json')
+
 
 
