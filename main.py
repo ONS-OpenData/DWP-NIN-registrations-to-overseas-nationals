@@ -5,7 +5,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.4'
-#       jupytext_version: 1.1.1
+#       jupytext_version: 1.2.4
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -33,7 +33,9 @@ sheets = scraper.distribution(
 
 # The tab/sheet named '1' has "Table 1: NINo registrations to adult overseas nationals entering the UK by quarter of registration and world region"
 
-savepreviewhtml(sheets[1])
+# +
+#savepreviewhtml(sheets[1])
+# -
 
 observations = sheets[1].excel_ref('B8').expand(DOWN).expand(RIGHT).is_not_blank()
 area = sheets[1].excel_ref('B6').expand(RIGHT).is_not_blank()
@@ -46,7 +48,7 @@ dimensions = [
     HDimConst('Unit','People')
 ]
 cs = ConversionSegment(observations, dimensions, processTIMEUNIT=True)
-savepreviewhtml(cs)
+#savepreviewhtml(cs)
 
 table1 = cs.topandas()
 table1.head()
@@ -82,7 +84,8 @@ table1['Period'] = table1['Period'].map(to_quarter)
 
 # Table 2: Adult overseas nationals entering the UK by Region / Local Authority and world region
 
-savepreviewhtml(sheets[2])
+# +
+#savepreviewhtml(sheets[2])
 
 # +
 observations = sheets[2].excel_ref('C9').expand(DOWN).expand(RIGHT).is_not_blank() - sheets[2].excel_ref('A432').expand(RIGHT)
@@ -96,7 +99,7 @@ Dimensions = [
             HDimConst('Unit','People')
             ]
 cs = ConversionSegment(observations, Dimensions, processTIMEUNIT=True)
-savepreviewhtml(cs)
+#savepreviewhtml(cs)
 # -
 
 table2 = cs.topandas()
@@ -116,7 +119,9 @@ table2.head()
 
 # Table 3: NIN to adult Overseas Nationals Entering The UK by World region and nationality
 
-savepreviewhtml(sheets[3])
+# +
+#savepreviewhtml(sheets[3])
+# -
 
 observations = sheets[3].excel_ref('C29:D29').expand(DOWN).is_not_blank()
 citizenship = sheets[3].excel_ref('B29').expand(DOWN).is_not_blank()
@@ -129,7 +134,7 @@ Dimensions = [
             HDimConst('Unit','People')
             ]
 cs = ConversionSegment(observations, Dimensions, processTIMEUNIT=True)
-savepreviewhtml(cs)
+#savepreviewhtml(cs)
 
 table3 = cs.topandas()
 table3.head()
@@ -176,7 +181,7 @@ full_table.head()
 world_regions = sheets[4].filter('World region').fill(DOWN).is_not_blank()
 sub_groups = world_regions.shift(RIGHT)
 nationalities = sub_groups.shift(RIGHT)
-savepreviewhtml([world_regions, sub_groups, nationalities])
+#avepreviewhtml([world_regions, sub_groups, nationalities])
 
 # +
 regions = set(r.value for r in world_regions)
@@ -213,6 +218,7 @@ codelist = [
 codelist_df = pd.DataFrame.from_records(codelist, columns=('Label', 'Notation', 'Parent Notation'))
 codelist_df['Sort Priority'] = codelist_df.index + 1
 codelist_df['Description'] = ''
+
 if not codelist_df['Notation'].is_unique:
     display(codelist_df[codelist_df.duplicated('Notation', keep='first')])
     assert False, "Notation not unique for nationalities codelist"
@@ -248,6 +254,10 @@ ons_geo_table = full_table[full_table['Geography'].notnull()]
 overseas_table = full_table[~full_table['Geography'].notnull()].copy()
 overseas_table['Registration Geography'] = 'Overseas'
 overseas_table.drop(columns=['Geography'], inplace=True)
+
+# Added by LPerryman 17-02-2020 to match up with ref data
+ons_geo_table.rename(columns={'Nationality':'DWP Nationality'}, inplace=True)
+overseas_table.rename(columns={'Nationality':'DWP Nationality'}, inplace=True)
 
 # +
 from pathlib import Path
